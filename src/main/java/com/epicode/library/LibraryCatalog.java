@@ -1,4 +1,4 @@
-package com.epicode.biblioteca;
+package com.epicode.library;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,16 +10,15 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.epicode.testi.Libro;
+import com.epicode.publication.Book;
+import com.epicode.publication.PublicationAbstract;
 
-import com.epicode.testi.TestoAbstract;
-
-public class CatalogoBiblioteca implements Catalogo {
- Logger log = LoggerFactory.getLogger(CatalogoBiblioteca.class);
-	private Map<String, TestoAbstract> catalogo = new HashMap<>();
+public class LibraryCatalog implements Catalog {
+ Logger log = LoggerFactory.getLogger(LibraryCatalog.class);
+	private Map<String, PublicationAbstract> catalogo = new HashMap<>();
 	
 	@Override
-	public void addTesto(TestoAbstract t) {
+	public void addPublication(PublicationAbstract t) {
 		catalogo.put(t.getIsbn(), t);
 	log.debug("File aggiutno con successo");
 	log.trace("Metodo terminato");
@@ -35,7 +34,7 @@ public class CatalogoBiblioteca implements Catalogo {
 
 	@Override
 	public void searchIsbn(String isbn) {
-	TestoAbstract t =	catalogo.get(isbn);
+	PublicationAbstract t =	catalogo.get(isbn);
 		log.debug("elemento trovato");
 		System.out.println(t);
 		log.trace("Metodo terminato");
@@ -45,7 +44,7 @@ public class CatalogoBiblioteca implements Catalogo {
 	public void searchYear(int year) {
 	log.debug(" Ricerca Elemento ");
 	 catalogo.values()
-	 .stream().filter( ele -> year == ele.getAnnoPubblicazione())
+	 .stream().filter( ele -> year == ele.getYearOfPublication())
 	 .forEach(ele-> System.out.println(ele));
 	 log.trace("Metodo terminato");
 	 
@@ -54,9 +53,9 @@ public class CatalogoBiblioteca implements Catalogo {
 	@Override
 	public void searchAuthor(String author) {
 	log.debug(" Ricerca Elemento ");
-	 catalogo.values().stream().filter(ele-> ele instanceof Libro)
-	 .map(ele->(Libro)ele)
-	 .filter(ele -> author.equals(ele.getAutore()))
+	 catalogo.values().stream().filter(ele-> ele instanceof Book)
+	 .map(ele->(Book)ele)
+	 .filter(ele -> author.equals(ele.getAuthor()))
 	 .forEach(ele->System.out.println(ele));
 	 log.trace("Metodo terminato");
 		
@@ -67,7 +66,7 @@ public class CatalogoBiblioteca implements Catalogo {
 	public void saveFile() {
       	File file = new File("Memory/archivio.txt");
       	String txt = "";
-      for (TestoAbstract ele : catalogo.values()) {
+      for (PublicationAbstract ele : catalogo.values()) {
     	  	txt+= ele.toString();
 	}
      try {

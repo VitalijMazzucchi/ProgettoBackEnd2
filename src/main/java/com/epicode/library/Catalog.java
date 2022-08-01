@@ -1,14 +1,14 @@
-package com.epicode.biblioteca;
+package com.epicode.library;
 
 
 
 
 
 
-import com.epicode.testi.TestoAbstract;
+import com.epicode.publication.PublicationAbstract;
 
-public interface Catalogo {
-		void addTesto(TestoAbstract t);
+public interface Catalog {
+		void addPublication(PublicationAbstract t);
 		void removeFromIsbn(String isbn);
 		void searchIsbn(String isbn);
 		void searchYear(int year);
