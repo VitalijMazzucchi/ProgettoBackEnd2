@@ -1,7 +1,7 @@
 package com.epicode.publication;
 
 public enum Periodicity {
-	 SETTIMANALE,
-	 MENSILE,
-	 SEMESTRALE
+	 WEEKLY,
+	 MONTHLY,
+	 SEMI_ANNUAL
 }
